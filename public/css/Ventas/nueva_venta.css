@@ -1,0 +1,53 @@
+.form_venta{
+background: #fff;
+border-radius: 1em;
+border: 1px solid rgb(223, 223, 223);
+box-shadow: 10px 10px 30px 0 rgb(180, 180, 180);
+padding: 1.5em;
+max-height: 100em;
+}
+
+.form_venta__datos_cliente{
+    padding: 0 3em;
+}
+
+.modal-dialog{
+    max-width: 80%;
+}
+
+.modal-content{
+    padding: 0 3em ;
+}
+.toolbar{
+    
+}
+.toolbar__select_filter{
+    position: absolute;
+    left: 40em;
+    top: 0;
+    width: auto;
+}
+
+.select_payment_method{
+    width: auto;
+}
+
+.toolbar__input_quantity{
+    display: inline;
+    width: 6em;
+}
+
+.table_precios{
+    width: auto;
+    margin-left: auto;
+}
+
+.table_precios__label{
+    display: block;
+    margin: 0;
+}
+
+[data-field="total_price"] .th-inner {
+    width: 200px;
+    padding-top: 2em; 
+  }

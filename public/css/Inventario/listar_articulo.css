@@ -1,0 +1,31 @@
+
+.toolbar__select_filter{
+    position: absolute;
+    left: 43em;
+    top: 0;
+    width: auto;
+}
+
+.table_productos__link{
+    display: inline-block;
+    color: #fff;
+    padding: .2em;
+    border-radius: .4em;
+    background: rgb(72, 203, 255);
+    border:1px solid rgb(72, 203, 255) ;
+    box-shadow: 1px 1px 8px 0px rgb(155, 155, 155);
+    
+}
+
+.table_productos__link:hover{
+    color: rgb(72, 203, 255);
+    padding: .2em;
+    border-radius: .4em;
+    background: #fff;
+    border:1px solid rgb(72, 203, 255) ;
+    text-decoration: none;
+}
+
+.table_productos__link:active{
+    transform: scale(0.8);
+}

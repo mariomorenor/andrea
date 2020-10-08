@@ -1,0 +1,11 @@
+.form_producto{
+   background: rgb(255, 255, 255);
+   border-radius: 2em;
+   box-shadow: 10px 10px 10px 0px rgb(189, 189, 189);
+   padding: 2em 4em;
+}
+
+.form_producto__textarea{
+    max-height: 9em;
+    min-height: 4em;
+}
