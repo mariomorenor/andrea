@@ -18,8 +18,9 @@ class CreateInvoicesTable extends Migration
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->bigInteger('code')->unique();
             $table->date('date_sale');
-            $table->string('payment_method');
+            $table->foreignId('payment_method_id')->constrained('payment_methods')->onDelete('cascade');
             $table->string('status')->default('activo');
+            $table->double('total');
             $table->timestamps();
         });
     }

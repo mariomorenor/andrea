@@ -19,7 +19,7 @@ class CreateInvoiceBodiesTable extends Migration
             $table->integer('quantity');
             $table->double('price');
             $table->double('total');
-            $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
+            $table->foreignId('invoice_id')->constrained('invoices')->onDelete('cascade');
             $table->timestamps();
         });
     }

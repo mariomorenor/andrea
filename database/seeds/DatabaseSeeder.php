@@ -21,8 +21,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(ClientSeeder::class);
         $this->call(PaymentMethodSeeder::class);
-        factory(Product::class,10)->create();
-        // factory(Price::class,100)->create();
+        $this->call(ProductSeeder::class);
+        $this->call(PriceSeeder::class);
+        $this->call(StockSeeder::class);
+        // factory(Product::class,10)->create();
+        // factory(Price::class,10)->create();
         factory(Client::class,100)->create();
         // factory(Income::class,100)->create();
         // factory(Seller::class,10)->create();

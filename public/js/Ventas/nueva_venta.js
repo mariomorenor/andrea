@@ -1,6 +1,4 @@
 
-
-
 var $table_productos = $('#table_productos');
 $table_productos.bootstrapTable();
 var $table_resumen = $('#table_resumen');
@@ -25,6 +23,7 @@ function creditFormatter(value, row) {
 }
 
 function stockFormatter(value, row) {
+    // console.log(row)
     return row.stock.total == null ? `Sin Especificar <a class="table_productos__link" href="/inventario/stock/${row.id}">Configurar</a>` : row.stock.total;
 }
 
@@ -81,7 +80,7 @@ function totalFooterFormatter(data){
   return 'Total $'+ data.map(function (row) {
       return +row[field]
     }).reduce(function (sum, i) {
-      return sum + i
+      return Number((sum + i).toFixed(2))
     }, 0)
     
     // // TODO A FUTURO VINCULAR CON TABLA IVA
@@ -118,10 +117,22 @@ window.accionesEvent = {
 window.quantityEvent = {
     'click .plus': function(e, value, row, index){
         row.quantity++;
-        $table_resumen.bootstrapTable('updateRow',{
-            index,
-            row
-        });
+        let productos_sin_stock = comprobarStock(row,true);
+        if (productos_sin_stock.length>0) {
+            row.quantity--;
+            Swal.fire({
+                icon:'error',
+                title:'Error!',
+                text:'No se puede agregar más productos, fuera de Stock!'
+            });
+            return;
+        }else{
+            
+            $table_resumen.bootstrapTable('updateRow',{
+                index,
+                row
+            });
+        }
     },
     'click .minus':function(e, value, row, index){
         if (row.quantity > 1) {
@@ -167,20 +178,21 @@ $('#btn_add_products').click(function (e) {
 
 //FUNCION QUE AGREGA PRODUCTOS A LA TABLA RESUMEN
 function payment_method_function(productos, accion) {
-    
-    
-
+  try {
+      
     if (accion == 1) {
         $table_resumen.bootstrapTable("removeAll");
     }else{
-        let p =  $.map($table_resumen.bootstrapTable('getData'), function (row) {
+        let productos_en_factura =  $.map($table_resumen.bootstrapTable('getData'), function (row) {
             return row
             });
 
-        if (check_Productos(productos, p )) {
+        if (check_Productos(productos, productos_en_factura )) {
             return;
         }
     }
+
+    
 
     productos.forEach(producto => {
 
@@ -196,8 +208,20 @@ function payment_method_function(productos, accion) {
                 break;
         }
     if (accion == 2) {
-        producto.quantity = Number($('#cantidad_producto').val());
-    }   
+        producto.quantity = Number($('#cantidad_producto').val());  
+                     // COMPROBAR SI EL PRODUCTO O PROPDUCTOS SELECCIONADOS EWSTARÍAN FUERA DE STOCK
+       let productos_sin_stock = comprobarStock(productos);
+ 
+       if (productos_sin_stock.length>0) {
+               Swal.fire({
+                   icon:'error',
+                   title:'Error!',
+                   text:'Existen Productos que están fuera de stock, compruebe antes de agregarlos a la venta'
+               });
+               return;
+           }
+
+    }
         producto.total_price = Number((producto.price_sale * producto.quantity).toFixed(2));
         $table_resumen.bootstrapTable("insertRow", {
             index: $table_resumen.bootstrapTable("getOptions").totalRows + 1,
@@ -205,23 +229,31 @@ function payment_method_function(productos, accion) {
         })
 
     });
-    if(accion == 2){
+
+    
+    if(accion == 2 ){
         $('.alert').addClass('show');
         setTimeout(function(){
             $('.alert').removeClass('show');
         },3000);
     }
     resetTableProductos();
+
+} catch (error) {
+    
+}
+
+
 }
 ///FIN FUNCION TOCHA PRRO
 
 
-function check_Productos(productos, productos_en_tabla){
+function check_Productos(productos_seleccionados, productos_en_tabla){
     let productos_repetidos = [];
 
     productos_en_tabla.map(producto =>{
        
-       return productos.forEach(prod => {
+       return productos_seleccionados.forEach(prod => {
             if (prod.id == producto.id) {
                 productos_repetidos.push(prod)
             }
@@ -239,12 +271,21 @@ function check_Productos(productos, productos_en_tabla){
     return false;
 }
 
+function comprobarStock(productos_seleccionados, update=false) {
+    let productos_sin_stock = [];
+    if (update) {
+        if (productos_seleccionados.quantity > productos_seleccionados.stock.total) {
+            productos_sin_stock.push(productos_seleccionados);
+        }
+    } else {
+        productos_seleccionados.map(producto =>{
+            if (producto.quantity > producto.stock.total) {
+                productos_sin_stock.push(producto);
+            }
+           
+        });
+    }
 
-// ************* Generar Venta
+    return productos_sin_stock;
 
-$('#btn_generar_venta').click(function (e) { 
-    e.preventDefault();
-    
-   axios.post('');
-
-});
+}

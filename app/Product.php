@@ -25,8 +25,9 @@ class Product extends Model
         return $this->hasOne(Stock::class,'product_id');
     }
 
-    public function asd()
+    public function scopeOutOfStock($query)
     {
-
+        return $query->where('stock','>',0);
     }
+
 }

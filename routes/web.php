@@ -19,20 +19,19 @@ Route::get('/', function () {
 
 Auth::routes(['register'=>false,'confirm'=>false,'verify'=>false,'reset'=>false]);
 
-
 Route::middleware(['auth'])->group(function(){
 
     Route::get('/home', 'HomeController@index')->name('home');
+    
     //RUTAS PRODUCTOS
     Route::delete('delete_products','Inventario\ProductController@delete_multiple_products');
+    Route::get('listar_productos','Inventario\ProductController@list_products')->name('productos_disponibles');
     Route::resource('productos','Inventario\ProductController');
 
     //RUTAS STOCK
-
     Route::post('stock','Inventario\StockController@actualizar_stock')->name('actualizar_stock');
 
     //RUTAS INVENTARIO
-
     Route::get('inventario','Inventario\InventarioController@index');
     Route::get('inventario/listar-articulos','Inventario\InventarioController@listar_articulos')->name('listar_articulos');
     Route::get('inventario/crear-articulo','Inventario\InventarioController@crear_articulo')->name('crear_articulo');
@@ -41,4 +40,6 @@ Route::middleware(['auth'])->group(function(){
     //RUTAS VENTAS
     Route::get('ventas','Ventas\VentasController@index');
     Route::get('ventas/nuevo','Ventas\VentasController@nueva_venta')->name('nueva_venta');
+    Route::post('generar-venta','Ventas\InvoiceController@store');
+
 });

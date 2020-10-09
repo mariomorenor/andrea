@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Ventas;
 
 use App\Http\Controllers\Controller;
+use App\InvoiceBody;
 use Illuminate\Http\Request;
 
 class VentasController extends Controller
 {
     public function index()
     {
+
         return view('layouts.Ventas');
     }
 

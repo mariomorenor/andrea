@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Price::class, function (Faker $faker) {
     return [
-        'product_id'=>$faker->numberBetween($min=1, $max=100),
+        'product_id'=>$faker->numberBetween($min=1, $max=10),
         'payment_method'=>$faker->numberBetween($min=1, $max=3),
         'value'=>$faker->randomFloat($min=2, $max=100, $nbMaxDecimals = 2),
     ];

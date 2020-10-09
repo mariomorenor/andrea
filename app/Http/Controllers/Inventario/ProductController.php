@@ -15,8 +15,21 @@ class ProductController extends Controller
 {
     public function index()
     {
-        
        $products = Product::all();
+    // $products = Product::with(['prices','stock'=>function($query){
+    //     $query->where('total','>',0)->get();
+    // }])->get();
+        return response()->json([
+            'rows'=>$products
+        ]);
+    }
+
+    public function list_products(Request $request)
+    {
+        $products = Product::with(['prices','stock'=>function($query){
+            $query->where('total','>',0)->get();
+        }])->get();
+        $products = collect($products)->where('stock','!=',null);
         return response()->json([
             'rows'=>$products
         ]);
