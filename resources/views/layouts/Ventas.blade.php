@@ -12,7 +12,7 @@
                 <a class="menu_ventas__link" href="{{ route('nueva_venta') }}">Nueva Venta </a>
             </li>
             <li class="menu_ventas__item" id="menu_ventas__comprobantes">
-                <a class="menu_ventas__link" href="#">Comprobantes</a>
+                <a class="menu_ventas__link" href="{{ route('comprobantes') }}">Comprobantes</a>
             </li>
         </ul>
     </div>

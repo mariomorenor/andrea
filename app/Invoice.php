@@ -18,8 +18,20 @@ class Invoice extends Model
     protected $casts=[
         'date_sale'=>'date',
         'payment_method'=>'integer',
-        'code'=>'integer'
+        'code'=>'integer',
+        'status'=>"string"
     ];
+
+
+    public function cliente()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function payment_method()
+    {
+        return $this->belongsTo(PaymentMethod::class,'payment_method_id');
+    }
 
     protected static function booted()
     {
@@ -37,6 +49,12 @@ class Invoice extends Model
                 
             });
         });
+
+        static::updated(function($Invoice)
+        {
+            
+        });
+
     }
 
 }

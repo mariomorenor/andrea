@@ -18,5 +18,7 @@ class StockSeeder extends Seeder
                 'total'=>rand(10,100)
             ]);
         }
+
+        
     }
 }

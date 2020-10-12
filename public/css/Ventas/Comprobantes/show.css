@@ -1,0 +1,7 @@
+.comprobante{
+    background: rgb(250, 255, 253);
+    border-radius: 1em;
+    padding: 1em 3em;
+    box-shadow: 10px 10px 30px 0 rgb(172, 172, 172);
+}
+

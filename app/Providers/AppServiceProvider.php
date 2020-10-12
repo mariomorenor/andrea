@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Observers\ProductObserver;
 use App\Observers\StockEntryObserver;
 use App\Observers\StockObserver;
+use App\Observers\StockRegistryObserver;
 use App\Product;
 use App\StockEntry;
+use App\StockRegistry;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +31,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Product::observe(ProductObserver::class);
-        StockEntry::observe(StockEntryObserver::class);
+        StockRegistry::observe(StockRegistryObserver::class);
     }
 }

@@ -26,12 +26,18 @@ class ProductController extends Controller
 
     public function list_products(Request $request)
     {
-        $products = Product::with(['prices','stock'=>function($query){
+        $products = collect(Product::with(['prices','stock'=>function($query){
             $query->where('total','>',0)->get();
-        }])->get();
-        $products = collect($products)->where('stock','!=',null);
+        }])->get())->whereNotNull('stock');
+
+        $productos = array();
+    
+        foreach ($products as $producto) {
+            array_push($productos,$producto);
+        }
+
         return response()->json([
-            'rows'=>$products
+            'rows'=>$productos
         ]);
     }
 

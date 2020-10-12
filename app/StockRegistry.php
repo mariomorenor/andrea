@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StockEntry extends Model
+class StockRegistry extends Model
 {
     protected $fillable=[
         'quantity',

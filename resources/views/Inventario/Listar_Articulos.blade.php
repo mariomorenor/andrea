@@ -74,7 +74,14 @@
         return '$'+ row.prices[2].value;
         }
         function stockFormatter(value, row) {
-            return row.stock.total == null ? `Sin Especificar <a class="table_productos__link" href="/inventario/stock/${row.id}">Configurar</a>` : row.stock.total + ` <a class="table_productos__link px-2" href="/inventario/stock/${row.id}"><i class="fas fa-pencil-alt"></i></a>`;
+            if (row.stock.total == null ) {
+                return `Sin Especificar <a class="table_productos__link" href="/inventario/stock/${row.id}">Configurar</a>` ;
+            }else if (row.stock.total == 0) {
+                return `Fuera de Stock! <a class="table_productos__link" href="/inventario/stock/${row.id}">Agregar</a>` ;
+            }else{
+                return  row.stock.total + ` <a class="table_productos__link px-2" href="/inventario/stock/${row.id}"><i class="fas fa-pencil-alt"></i></a>`;
+            }
+            // return row.stock.total == null ? `Sin Especificar <a class="table_productos__link" href="/inventario/stock/${row.id}">Configurar</a>` : row.stock.total + ` <a class="table_productos__link px-2" href="/inventario/stock/${row.id}"><i class="fas fa-pencil-alt"></i></a>`;
         }
 
         function accionesFormatter(value,row) {

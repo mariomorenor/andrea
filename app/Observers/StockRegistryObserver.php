@@ -3,9 +3,9 @@
 namespace App\Observers;
 
 use App\Stock;
-use App\StockEntry;
+use App\StockRegistry;
 
-class StockEntryObserver
+class StockRegistryObserver
 {
     /**
      * Handle the stock entry "created" event.
@@ -13,22 +13,22 @@ class StockEntryObserver
      * @param  \App\StockEntry  $stockEntry
      * @return void
      */
-    public function created(StockEntry $stockEntry)
+    public function created(StockRegistry $stockRegistry)
     {   
-        $stock = Stock::find($stockEntry->product_id);
+        $stock = Stock::find($stockRegistry->product_id);
         $total = $stock->total == null?0:$stock->total;
         $stock->update([
-            'total'=> $total + $stockEntry->quantity 
+            'total'=> $total + $stockRegistry->quantity 
         ]);
     }
 
     /**
      * Handle the stock entry "updated" event.
      *
-     * @param  \App\StockEntry  $stockEntry
+     * @param  \App\StockRegistry  $stockEntry
      * @return void
      */
-    public function updated(StockEntry $stockEntry)
+    public function updated(StockRegistry $stockEntry)
     {
         //
     }
@@ -36,10 +36,10 @@ class StockEntryObserver
     /**
      * Handle the stock entry "deleted" event.
      *
-     * @param  \App\StockEntry  $stockEntry
+     * @param  \App\StockRegistry  $stockEntry
      * @return void
      */
-    public function deleted(StockEntry $stockEntry)
+    public function deleted(StockRegistry $stockEntry)
     {
         //
     }
@@ -47,10 +47,10 @@ class StockEntryObserver
     /**
      * Handle the stock entry "restored" event.
      *
-     * @param  \App\StockEntry  $stockEntry
+     * @param  \App\StockRegistry  $stockEntry
      * @return void
      */
-    public function restored(StockEntry $stockEntry)
+    public function restored(StockRegistry $stockEntry)
     {
         //
     }
@@ -58,10 +58,10 @@ class StockEntryObserver
     /**
      * Handle the stock entry "force deleted" event.
      *
-     * @param  \App\StockEntry  $stockEntry
+     * @param  \App\StockRegistry  $stockEntry
      * @return void
      */
-    public function forceDeleted(StockEntry $stockEntry)
+    public function forceDeleted(StockRegistry $stockEntry)
     {
         //
     }

@@ -1,0 +1,22 @@
+/* .filterOptions{
+    margin: 0 1em;
+}
+
+.search-input{
+    margin-top: 1.6em;
+    margin-left: .2em ;
+} */
+.bootstrap-table-filter-control-code{
+    margin-top: 0;
+    margin-left: 1.5em;
+    width: 6em !important;
+    display: inline;
+}
+
+.bootstrap-table-filter-control-client{
+    margin-top: 0;
+    margin-left: 1.5em;
+    width: 80% !important;
+    display: inline;
+}
+

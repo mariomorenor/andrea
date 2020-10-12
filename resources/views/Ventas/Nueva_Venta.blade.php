@@ -123,7 +123,7 @@
                                 <option value="name">Nombre</option>
                             </select>
                     </div>
-                    <table id="table_productos" data-toolbar=".toolbar"  data-detail-formatter="detailFormatter"  data-search-align="left"  data-detail-view="true" class="table_productos" data-click-to-select="true" data-checkbox-header="false" data-url="{{ route('productos_disponibles') }}" data-height="400" data-search="true">
+                    <table id="table_productos" data-toolbar=".toolbar" data-custom-search="customSearch" data-detail-formatter="detailFormatter"  data-search-align="left" data-search="true" data-detail-view="true" class="table_productos" data-click-to-select="true" data-checkbox-header="false" data-url="{{ route('productos_disponibles') }}" data-height="400" >
                         <thead class="thead-dark">
                             <tr>
                                 <th data-field="state" data-checkbox="true"></th>
@@ -181,8 +181,23 @@ $('#btn_generar_venta').click(function (e) {
        total_factura,
        code: $('#code_factura').text()
    }).then(({data})=>{
-       console.log(data);
+       if (data == 'ok') {
+           Swal.fire({
+               icon:'success',
+               title:'Operación Realizada Correctamente!',
+               timer:1500
+           }).then((data)=>{
+               window.location = '/ventas/nuevo';
+           });
+
+       }
    }).catch((error)=>{
+       Swal.fire({
+           icon:'error',
+           title:'Se produjo un error!',
+           text: 'Intente más tarde',
+           timer:1500
+       })
        console.log(error.response)
    });
 

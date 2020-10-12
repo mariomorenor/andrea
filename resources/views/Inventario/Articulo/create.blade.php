@@ -78,7 +78,7 @@
             <div class="col">
                 <button type="submit" class="btn btn-success btn-lg">GUARDAR<i
                         class="far fa-save fa-lg ml-2"></i></button>
-                <a href="{{ route('listar_articulos') }}" class="btn btn-secondary btn-lg">CANCELAR<i class="fas fa-arrow-circle-left ml-2"></i></a>
+                <a href="{{ URL::previous() }}" class="btn btn-secondary btn-lg">CANCELAR<i class="fas fa-arrow-circle-left ml-2"></i></a>
             </div>
         </div>
     </form>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStockEntriesTable extends Migration
+class CreateStockRegistriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateStockEntriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('stock_entries', function (Blueprint $table) {
+        Schema::create('stock_registries', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
+            $table->char('type',1);
             $table->date('date');
             $table->integer('balance');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
@@ -30,6 +31,6 @@ class CreateStockEntriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stock_entries');
+        Schema::dropIfExists('stock_registries');
     }
 }

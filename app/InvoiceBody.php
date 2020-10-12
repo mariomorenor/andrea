@@ -23,15 +23,35 @@ class InvoiceBody extends Model
         'product_id'=>'integer'
     ];
 
+    
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+
     protected static function booted()
     {
         static::created(function($invoice_body){
             DB::transaction(function() use($invoice_body){
                 
                 $stock_producto = Stock::where('product_id',$invoice_body->product_id)->first();
-                $stock_producto->update([
-                    'total'=>($stock_producto->total - $invoice_body->quantity)
-                ]);
+                
+                $stockRegistry = new StockRegistry;
+                $stockRegistry->quantity = $invoice_body->quantity;
+                $stockRegistry->balance = $stock_producto->total;
+                $stockRegistry->product_id = $invoice_body->product_id;
+                $invoice = Invoice::find($invoice_body->invoice_id);
+                $stockRegistry->date = $invoice->date_sale;
+                $stockRegistry->type = 'S';
+                
+                $stockRegistry->save();
+
+                    $stock_producto->update([
+                        'total'=>($stock_producto->total - $invoice_body->quantity)
+                    ]);
+     
+                    
+                
 
             });
 

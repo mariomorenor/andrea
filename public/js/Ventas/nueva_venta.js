@@ -1,6 +1,11 @@
 
 var $table_productos = $('#table_productos');
-$table_productos.bootstrapTable();
+$table_productos.bootstrapTable({
+    responseHandler:function(response){
+        // console.log(response)
+    return response
+    }
+});
 var $table_resumen = $('#table_resumen');
 $table_resumen.bootstrapTable();
 
@@ -24,7 +29,9 @@ function creditFormatter(value, row) {
 
 function stockFormatter(value, row) {
     // console.log(row)
-    return row.stock.total == null ? `Sin Especificar <a class="table_productos__link" href="/inventario/stock/${row.id}">Configurar</a>` : row.stock.total;
+    
+    // return row.stock.total == 0 ? `Sin Especificar <a class="table_productos__link" href="/inventario/stock/${row.id}">Configurar</a>` : row.stock.total;
+    return row.stock.total;
 }
 
 function accionesFormatter(value, row) {
@@ -240,7 +247,7 @@ function payment_method_function(productos, accion) {
     resetTableProductos();
 
 } catch (error) {
-    
+  console.log(error)
 }
 
 
