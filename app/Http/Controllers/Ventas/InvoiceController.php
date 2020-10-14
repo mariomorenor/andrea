@@ -6,6 +6,7 @@ use App\Client;
 use App\Http\Controllers\Controller;
 use App\Invoice;
 use App\InvoiceBody;
+use App\InvoiceHeader;
 use App\PaymentMethod;
 use App\ResumeInvoice;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['cliente','payment_method'])->get();
+        $invoices = Invoice::all();
         return response()->json([
             'rows'=>$invoices
         ]);
@@ -47,7 +48,6 @@ class InvoiceController extends Controller
         
         return 'ok';
         });
-
         
     }
 

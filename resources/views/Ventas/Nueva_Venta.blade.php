@@ -73,12 +73,32 @@
                <div class="mr-2">
                    <button type="button" data-toggle="modal" data-target="#modal_productos" class="btn btn-primary mb-2">Productos <i class="fas fa-plus-circle fa-lg"></i></button>
                 </div>
-                <label for="" class="font-weight-bold my-auto mr-2">Forma de Pago:</label>
+                <label for="" class="font-weight-bold my-auto mr-2">Método de Pago:</label>
                 <select class="form-control select_payment_method" name="payment_method_id" id="select_payment_method">
                     @foreach (App\PaymentMethod::all() as $payment)
                         <option value="{{$payment->id}}">{{ucfirst($payment->type)}}</option>
                     @endforeach
                 </select>
+
+                <div class=" ml-2" id="payment_efectivo">
+                    <div>
+                        <button type="button" data-toggle="modal" data-target="#payment_interval" class="btn_payment_interval">Configurar</button>
+                    </div>
+                    {{-- <label for="" class="my-auto font-weight-bold mr-1">Cuotas:</label>
+                    <input type="number" value="1" placeholder="1" step="1" min="1" id="input_fee" name="fee" class="form-control input_fee">
+                    <div id="mensual" class="d-flex">
+                        <label for="" class="my-auto font-weight-bold mx-2">Fecha Cuota:</label>
+                        <input type="date" name="agreed_payment_date" class="form-control" id="" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}" max="{{Carbon\Carbon::now()->endOfMonth()->format('Y-m-d')}}">
+                    </div>
+                    <div class="" id="forma_pago">
+                        <label for="radio_mensual"  class="my-auto mx-2">Mensual</label>
+                        <input type="radio" id="radio_mensual" checked  name="radio_payment_interval">
+                        <label for="radio_quincenal" class="my-auto mx-2">Quincenal</label>
+                        <input type="radio" id="radio_quincenal" name="radio_payment_interval">
+                        <label for="radio_semanal" class="my-auto mx-2">Semanal</label>
+                        <input type="radio" id="radio_semanal" name="radio_payment_interval">
+                    </div> --}}
+                </div>
             </div>
             <div class="row">
                 <div class="col"> 
@@ -106,8 +126,8 @@
        <br>
     </div>
     <div class="modal fade" id="modal_productos">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal_productos" role="document">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h5>Productos Disponibles</h5>
                 </div>
@@ -148,6 +168,42 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="payment_interval">
+        <div class="modal-dialog modal_payment_interval" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Intervalos de Pago
+                </div>
+                <div class="modal-body">
+                    <div class="" id="forma_pago">
+                        <label for="radio_mensual"  class="my-auto mx-2">Mensual</label>
+                        <input type="radio" id="radio_mensual" checked  name="radio_payment_interval">
+                        <label for="radio_quincenal" class="my-auto mx-2">Quincenal</label>
+                        <input type="radio" id="radio_quincenal" name="radio_payment_interval">
+                        <label for="radio_semanal" class="my-auto mx-2">Semanal</label>
+                        <input type="radio" id="radio_semanal" name="radio_payment_interval">
+                    </div>
+                    <div id="monthy" class="mt-2">
+                        <label for="" class="my-auto font-weight-bold mx-2">Fecha Pago Mensual:</label>
+                        <input type="date" name="agreed_payment_date" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}" max="{{Carbon\Carbon::now()->endOfMonth()->format('Y-m-d')}}">
+                    </div>
+                    <div id="biweekly" class="mt-2">
+                        <label for="" class="my-auto font-weight-bold mx-2">Fecha A:</label>
+                        <input type="date" name="agreed_payment_date_A" class="form-control"  value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}" max="{{Carbon\Carbon::now()->endOfMonth()->format('Y-m-d')}}">
+                        <label for="" class="my-auto font-weight-bold mx-2">Fecha B:</label>
+                        <input type="date" name="agreed_payment_date_B" class="form-control"  value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}" max="{{Carbon\Carbon::now()->endOfMonth()->format('Y-m-d')}}">
+                    </div>
+                    <div id="weekly" class="mt-2">
+                        <label for="" class="my-auto font-weight-bold mx-2">Fecha Primer Pago:</label>
+                        <input type="date" name="agreed_payment_date" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" min="{{Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}" max="{{Carbon\Carbon::now()->endOfMonth()->format('Y-m-d')}}">
+                    </div>
+                </div>
+                <div class="modal-footer mb-2">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -181,6 +237,7 @@ $('#btn_generar_venta').click(function (e) {
        total_factura,
        code: $('#code_factura').text()
    }).then(({data})=>{
+       console.log(data)
        if (data == 'ok') {
            Swal.fire({
                icon:'success',
@@ -228,7 +285,6 @@ function obtener_datos_factura(variable){
             break;
     }
 }
-
 
 </script>
 @endpush

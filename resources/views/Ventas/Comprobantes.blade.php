@@ -57,6 +57,7 @@
         $table_invoices.bootstrapTable();
 
         function clientFormatter(value, row){
+          
             return row.cliente.name + " " + row.cliente.last_name ;
         }
         

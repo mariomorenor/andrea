@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
         $this->call(PriceSeeder::class);
         $this->call(StockSeeder::class);
+        $this->call(PaymentDateIntervalsSeeder::class);
+
         // // factory(Product::class,10)->create();
         // // factory(Price::class,10)->create();
         // factory(Client::class,100)->create();

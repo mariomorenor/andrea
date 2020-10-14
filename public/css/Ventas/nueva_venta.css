@@ -11,13 +11,16 @@ max-height: 100em;
     padding: 0 3em;
 }
 
-.modal-dialog{
+.modal_productos{
     max-width: 80%;
 }
 
 .modal-content{
     padding: 0 3em ;
 }
+
+
+
 .toolbar{
     
 }
@@ -51,3 +54,27 @@ max-height: 100em;
     width: 200px;
     padding-top: 2em; 
   }
+
+.input_fee{
+    width: 5em;
+    text-align: center;
+
+}
+
+#payment_efectivo{
+    display: none;
+}
+
+.btn_payment_interval{
+    background: rgb(152, 107, 202);
+    color:  #fff; 
+    border-radius: 1em;
+    border-color:  rgb(152, 107, 202);
+}
+.btn_payment_interval:hover{
+    background: #fff;
+    color:  rgb(152, 107, 202);
+}
+.btn_payment_interval:active{
+    transform: scale(.8);
+}

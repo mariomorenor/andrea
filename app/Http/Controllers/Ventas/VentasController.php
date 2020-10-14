@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Ventas;
 use App\Http\Controllers\Controller;
 use App\Invoice;
 use App\InvoiceBody;
+use App\InvoiceHeader;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,6 @@ class VentasController extends Controller
 {
     public function index()
     {   
-        // return    $invoice = Invoice::find(2);
         return view('layouts.Ventas');
     }
 

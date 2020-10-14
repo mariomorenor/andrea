@@ -40,8 +40,8 @@ class InvoiceBody extends Model
                 $stockRegistry->quantity = $invoice_body->quantity;
                 $stockRegistry->balance = $stock_producto->total;
                 $stockRegistry->product_id = $invoice_body->product_id;
-                $invoice = Invoice::find($invoice_body->invoice_id);
-                $stockRegistry->date = $invoice->date_sale;
+                $invoiceHeader = Invoice::find($invoice_body->invoice_id)->first();
+                $stockRegistry->date = $invoiceHeader->date_sale;
                 $stockRegistry->type = 'S';
                 
                 $stockRegistry->save();
@@ -49,8 +49,8 @@ class InvoiceBody extends Model
                     $stock_producto->update([
                         'total'=>($stock_producto->total - $invoice_body->quantity)
                     ]);
-     
-                    
+                
+       
                 
 
             });
